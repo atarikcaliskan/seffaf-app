@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seffafapp/screens/home.dart';
 import 'package:seffafapp/widgets/button.dart';
 import 'package:seffafapp/widgets/input.dart';
 
@@ -27,7 +28,7 @@ class _RegisterState extends State<Register> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Register(),
+            builder: (context) => Home(),
             settings: RouteSettings(
               arguments: data,
             ),
@@ -60,8 +61,8 @@ class _RegisterState extends State<Register> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
                 child: Input(
-                    label: 'İsim Soyisim:',
-                    placeholder: 'İsim soyisim giriniz',
+                    label: 'Isim Soyisim:',
+                    placeholder: 'Isim soyisim giriniz',
                     onChanged: (fullNameInput) {
                       setState(() {
                         _fullName = fullNameInput;
@@ -82,8 +83,8 @@ class _RegisterState extends State<Register> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
                 child: Input(
-                    label: 'Şifreniz:',
-                    placeholder: 'Şifrenizi giriniz',
+                    label: 'Sifreniz:',
+                    placeholder: 'Sifrenizi giriniz',
                     isPassword: true,
                     onChanged: (passwordInput) {
                       setState(() {
@@ -107,6 +108,7 @@ class _RegisterState extends State<Register> {
           ),
         ),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

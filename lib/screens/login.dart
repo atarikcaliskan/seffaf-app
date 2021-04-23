@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seffafapp/main.dart';
+import 'package:seffafapp/screens/home.dart';
 import 'package:seffafapp/widgets/button.dart';
 import 'package:seffafapp/widgets/input.dart';
 
@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MyHomePage(),
+            builder: (context) => Home(),
             settings: RouteSettings(
               arguments: data,
             ),
@@ -67,8 +67,8 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
                 child: Input(
-                    label: 'Şifreniz:',
-                    placeholder: 'Şifrenizi giriniz',
+                    label: 'Sifreniz:',
+                    placeholder: 'Sifrenizi giriniz',
                     onChanged: (passwordInput) {
                       setState(() {
                         _password = passwordInput;
@@ -91,6 +91,7 @@ class _LoginState extends State<Login> {
           ),
         ),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }
