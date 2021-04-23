@@ -33,11 +33,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _selectedIndex = 0;
 
-  void _incrementCounter() {
+  void _onItemTapped(int index) {
     setState(() {
-      _counter++;
+      _selectedIndex = index;
     });
   }
 
@@ -45,19 +45,27 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.0),
+        preferredSize: Size.fromHeight(60.0),
         child: AppBar(
-          title: Text(
-            'Title',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: primaryColor,
-          shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(40),
+          leading: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 16, 12, 8),
+            child: Container(
+              height: 10,
+              child: Image.asset(
+                "assets/images/logo-text.png",
+                width: 500,
+              ),
             ),
           ),
+          leadingWidth: 500,
+          bottom: PreferredSize(
+              child: Container(
+                color: Colors.grey.shade300,
+                height: 1.0,
+              ),
+              preferredSize: Size.fromHeight(-10)),
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
         ),
       ),
       body: Center(
@@ -66,20 +74,64 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'You have pushed the button a this many times:',
+                'Burada yeller esiyor.',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
               ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headline4,
+              Padding(
+                padding: EdgeInsets.only(top: 8),
+                child: Text(
+                  'İlk sen ol!',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
               ),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        unselectedIconTheme: IconThemeData(color: Colors.black54),
+        // showUnselectedLabels: true,
+        unselectedLabelStyle: TextStyle(
+          color: primaryColor,
+        ),
+        iconSize: 28,
+        selectedIconTheme: IconThemeData(color: primaryColor),
+        selectedItemColor: primaryColor,
+        showSelectedLabels: false,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+            // backgroundColor: Colors.red,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people_outline),
+            label: 'Business',
+
+            // backgroundColor: Colors.green,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'School',
+            // backgroundColor: Colors.purple,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            label: 'Settings',
+            // backgroundColor: Colors.pink,
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        backgroundColor: Colors.red.shade700,
+        onPressed: () {},
+        tooltip: 'Geri bildirim ekle',
+        backgroundColor: primaryColor,
         child: Icon(Icons.add),
       ),
     );
