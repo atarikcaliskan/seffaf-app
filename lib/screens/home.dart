@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:seffafapp/constants/data.dart';
+import 'package:seffafapp/utils/store.dart';
+import 'package:seffafapp/widgets/postList.dart';
 
 class Home extends StatefulWidget {
   Home({Key key, this.title}) : super(key: key);
@@ -9,31 +12,25 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final store = new Store();
+  List<dynamic> _posts = [];
+
+  void initState() {
+    super.initState();
+    store.get('posts').then((value) => setState(() {
+          _posts = [...value, ...dummyPost];
+        }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Burada yeller esiyor.',
-              style: TextStyle(
-                fontSize: 18,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 8),
-              child: Text(
-                'Ilk sen ol!',
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+          child: _posts.length > 0
+              ? PostList(
+                  posts: _posts,
+                )
+              : null),
     );
   }
 }

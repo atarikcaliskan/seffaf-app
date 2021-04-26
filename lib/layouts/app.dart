@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:seffafapp/constants/theme.dart';
 import 'package:seffafapp/screens/home.dart';
+import 'package:seffafapp/screens/notifications.dart';
 import 'package:seffafapp/screens/people.dart';
 import 'package:seffafapp/screens/profile.dart';
 
 // ignore: must_be_immutable
 class AppLayout extends StatefulWidget {
-  AppLayout({Key key, this.children, this.pushedView = false})
+  AppLayout(
+      {Key key,
+      this.children,
+      this.pushedView = false,
+      this.addIconOnTap,
+      this.hasAddIcon = false})
       : super(key: key);
   Widget children;
   bool pushedView;
+  bool hasAddIcon;
+  void Function() addIconOnTap;
 
   @override
   _AppLayoutState createState() => _AppLayoutState();
@@ -18,7 +26,7 @@ class AppLayout extends StatefulWidget {
 class _AppLayoutState extends State<AppLayout> {
   int _selectedIndex = 0;
 
-  final _pages = [Home(), People(), Profile()];
+  final _pages = [Home(), People(), Notifications(), Profile()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -113,12 +121,16 @@ class _AppLayoutState extends State<AppLayout> {
               ],
             )
           : null,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Gönderi ekle',
-        backgroundColor: primaryColor,
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: widget.hasAddIcon
+          ? FloatingActionButton(
+              onPressed: () {
+                widget.addIconOnTap();
+              },
+              tooltip: 'Gönderi ekle',
+              backgroundColor: primaryColor,
+              child: Icon(Icons.add),
+            )
+          : null,
     );
   }
 }

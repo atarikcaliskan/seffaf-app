@@ -8,15 +8,15 @@ class Input extends StatelessWidget {
     Key key,
     @required this.placeholder,
     @required this.onChanged,
-    // this.inputFormatters,
+    this.maxLines = 1,
     this.label = '',
     this.isPassword = false,
   }) : super(key: key);
 
   final String label;
   final String placeholder;
+  final int maxLines;
   void Function(String) onChanged;
-  // List<TextInputFormatter> inputFormatters;
   bool isPassword;
 
   @override
@@ -32,27 +32,29 @@ class Input extends StatelessWidget {
           onChanged: (text) {
             onChanged(text);
           },
+          maxLines: maxLines,
           style: TextStyle(fontSize: 14),
           obscureText: isPassword,
           decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.transparent, width: 0),
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: Colors.transparent,
-                width: 0,
+              contentPadding:
+                  maxLines > 1 ? EdgeInsets.fromLTRB(14, 34, 8, 8) : null,
+              focusedBorder: OutlineInputBorder(
+                borderSide:
+                    const BorderSide(color: Colors.transparent, width: 0),
+                borderRadius: BorderRadius.all(Radius.circular(4)),
               ),
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-            ),
-            fillColor: inputBackground,
-            filled: true,
-            contentPadding: const EdgeInsets.fromLTRB(12, 2, 12, 2),
-            hintText: placeholder,
-          ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: Colors.transparent,
+                  width: 0,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(4)),
+              ),
+              fillColor: inputBackground,
+              filled: true,
+              hintText: placeholder,
+              hintStyle: TextStyle()),
           keyboardType: TextInputType.number,
-          // inputFormatters: inputFormatters,
         ),
       ),
     ]);
