@@ -51,6 +51,7 @@ class PostListState extends State<PostList> {
                     backgroundImage: mockPeople.contains(senderName)
                         ? NetworkImage(senderImage)
                         : AssetImage('assets/images/user.png'),
+                    backgroundColor: Colors.grey.shade400,
                   ),
                 ),
               ),
@@ -60,7 +61,7 @@ class PostListState extends State<PostList> {
                   Row(
                     children: [
                       Text(
-                        '$targetName',
+                        '$senderName > $targetName',
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey.shade900,
@@ -73,7 +74,7 @@ class PostListState extends State<PostList> {
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(0, 4, 0, 0),
                       child: Text(
-                        '$senderName paylaştı.',
+                        'az önce',
                         style: TextStyle(
                           fontSize: 13,
                           color: Colors.grey.shade600,

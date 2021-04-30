@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class Person {
   String name;
   String image;
-  Person(String name, image) {
+  String degree;
+  Person(String name, image, degree) {
     this.name = name;
     this.image = image;
+    this.degree = degree;
   }
   getName() {
     return name;
@@ -14,21 +16,26 @@ class Person {
   getImage() {
     return image;
   }
+
+  getDegree() {
+    return degree;
+  }
 }
 
 String getImagePath(String path) {
   return "assets/images/$path";
 }
 
-Person person1 =
-    new Person('Ahmet Cevahir Çınar', getImagePath('cevahir-cinar.jpeg'));
-Person person2 = new Person('Tahir Sağ', getImagePath('tahir-sag.jpeg'));
-Person person3 =
-    new Person('Erdem Ağbahça', getImagePath('erdem-agbahca.jpeg'));
-Person person4 =
-    new Person('Selahattin Alan', getImagePath('selahattin-alan.jpeg'));
-Person person5 =
-    new Person('Fatih Başçiftçi', getImagePath('fatih-basciftci.jpeg'));
+Person person1 = new Person('Ahmet Cevahir Çınar',
+    getImagePath('cevahir-cinar.jpeg'), 'Dr. Öğr. Üyesi');
+Person person2 =
+    new Person('Tahir Sağ', getImagePath('tahir-sag.jpeg'), 'Dr. Öğr. Üyesi');
+Person person3 = new Person(
+    'Erdem Ağbahça', getImagePath('erdem-agbahca.jpeg'), 'Arş. Gör.');
+Person person4 = new Person(
+    'Selahattin Alan', getImagePath('selahattin-alan.jpeg'), 'Dr. Öğr. Üyesi');
+Person person5 = new Person(
+    'Fatih Başçiftçi', getImagePath('fatih-basciftci.jpeg'), 'Prof. Dr.');
 
 List<Person> people = [person1, person2, person3, person4, person5];
 
@@ -43,8 +50,11 @@ class PersonListState extends State<PersonList> {
   Widget _buildRow(Person person) {
     return ListTile(
       onTap: () {
-        Navigator.pushNamed(context, '/scholar',
-            arguments: {'name': person.getName(), 'image': person.getImage()});
+        Navigator.pushNamed(context, '/scholar', arguments: {
+          'name': person.getName(),
+          'image': person.getImage(),
+          'degree': person.getDegree()
+        });
       },
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

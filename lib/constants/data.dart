@@ -3,7 +3,7 @@ const mockPosts = [
     'title': 'Flutter Dersleri ile İlgili',
     'description':
         'Flutter derslerinde store konusundaki anlatımınız için teşekkür ederiz. Bizimle bu konu ile alakalı daha fazla kaynak paylaşabilir misiniz?',
-    'senderName': 'Tarik Caliskan',
+    'senderName': 'Tarık Çalışkan',
     'targetName': 'Ahmet Cevahir Çınar',
   },
   {

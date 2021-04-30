@@ -14,12 +14,18 @@ class _ProfileState extends State<Profile> {
   final store = new Store();
   List<dynamic> _posts = [];
   dynamic _user = {};
+  bool _isLoading = true;
 
   void initState() {
     super.initState();
-    store.get('posts').then((value) => setState(() {
-          _posts = [...value, ...mockPosts];
-        }));
+    store
+        .get('posts')
+        .then((value) => setState(() {
+              _posts = [...value, ...mockPosts];
+            }))
+        .then((value) => setState(() {
+              _isLoading = false;
+            }));
 
     store.getCurrentUser().then((value) => setState(() {
           _user = value;
@@ -41,7 +47,7 @@ class _ProfileState extends State<Profile> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          padding: EdgeInsets.fromLTRB(0, 20, 0, 12),
+          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
           alignment: Alignment.center,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -71,53 +77,64 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 6, 0, 32),
+                padding: EdgeInsets.fromLTRB(0, 6, 0, 0),
                 child: Text(
                   _user['college'] ?? '',
                   style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                 ),
               ),
               Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey.shade300,
-                    width: 0.6,
+                  padding: EdgeInsets.all(12),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade50,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.15),
+                        offset: Offset(0.0, 20.0),
+                        blurRadius: 8.0,
+                        spreadRadius: 3.0,
+                      )
+                    ],
                   ),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                child: Text(
-                  'Tüm Gönderiler',
-                  style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.grey.shade900,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
+                  child: Column(children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                      child: Text(
+                        'Tüm Gönderiler',
+                        style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.grey.shade900,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ])),
               filteredPosts.length > 0
                   ? Padding(padding: EdgeInsets.all(0))
-                  : Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 32, 0, 0),
-                          child: Icon(
-                            Icons.waves,
-                            size: 96,
-                            color: Colors.grey.shade400,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
-                          child: Text(
-                            'Burası çok ıssız. Bir gönderi paylaş.',
-                            style: TextStyle(
-                                fontSize: 14, color: Colors.grey.shade600),
-                          ),
-                        ),
-                      ],
-                    )
+                  : !_isLoading
+                      ? Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 32, 0, 0),
+                              child: Icon(
+                                Icons.waves,
+                                size: 96,
+                                color: Colors.grey.shade400,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
+                              child: Text(
+                                'Burası çok ıssız. Bir gönderi paylaş.',
+                                style: TextStyle(
+                                    fontSize: 14, color: Colors.grey.shade600),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Padding(
+                          padding: EdgeInsets.all(0),
+                        )
             ],
           ),
         ),

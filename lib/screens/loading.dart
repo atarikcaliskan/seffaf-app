@@ -17,21 +17,26 @@ class _LoadingState extends State<Loading> {
     await store
         .getCurrentUser()
         .then((value) => {
-              print('asd'),
               if (value != null &&
                   value['isLoggedIn'] != null &&
                   value['isLoggedIn'])
                 Timer(Duration(seconds: 1), () {
-                  Navigator.pushNamed(context, '/app');
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, "/app", (r) => false);
                 })
+              else
+                {
+                  Timer(Duration(seconds: 1), () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, "/login", (r) => false);
+                  })
+                }
             })
         .catchError(
-          (e) => {Navigator.pushNamed(context, '/login')},
+          (e) => {
+            Navigator.pushNamedAndRemoveUntil(context, "/login", (r) => false)
+          },
         );
-
-    Timer(Duration(seconds: 1), () {
-      Navigator.pushNamed(context, '/login');
-    });
   }
 
   @override

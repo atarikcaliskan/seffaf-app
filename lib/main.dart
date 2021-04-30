@@ -24,8 +24,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      // theme: ThemeData(fontFamily: 'Lato'),
+      title: 'Şeffaf',
+      theme: ThemeData(fontFamily: 'Poppins'),
       initialRoute: '/loading',
       routes: {
         '/login': (context) => Login(),

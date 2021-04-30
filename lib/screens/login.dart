@@ -23,8 +23,9 @@ class _LoginState extends State<Login> {
             _db
                 .collection('users')
                 .doc(e['id'])
-                .set({...e, 'isLoggedIn': true}).then(
-                    (value) => Navigator.pushNamed(context, '/app'))
+                .set({...e, 'isLoggedIn': true}).then((value) =>
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, "/app", (r) => false))
         }));
   }
 
@@ -42,12 +43,19 @@ class _LoginState extends State<Login> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 64),
+                  padding: const EdgeInsets.symmetric(vertical: 32),
                   child: Image.asset(
                     "assets/images/logo.png",
                     height: 72,
                   ),
                 ),
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 48),
+                    child: Text(
+                      'Giriş Yap',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                    )),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
                   child: Input(
@@ -62,8 +70,9 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
                   child: Input(
-                      label: 'Sifreniz:',
-                      placeholder: 'Sifrenizi giriniz',
+                      label: 'Şifreniz:',
+                      placeholder: 'Şifrenizi giriniz',
+                      isPassword: true,
                       onChanged: (passwordInput) {
                         setState(() {
                           _password = passwordInput;
@@ -79,7 +88,10 @@ class _LoginState extends State<Login> {
                   onPressed: () {
                     Navigator.pushNamed(context, '/register');
                   },
-                  child: Text('Hesabınız yok mu? Kayıt olun!'),
+                  child: Text(
+                    'Hesabınız yok mu? Kayıt olun!',
+                    style: TextStyle(color: Colors.grey.shade600),
+                  ),
                 ),
               ],
             ),

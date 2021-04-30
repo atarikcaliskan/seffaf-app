@@ -25,7 +25,8 @@ class _SettingsState extends State<Settings> {
                             .collection('users')
                             .doc(e['id'])
                             .set({...e, 'isLoggedIn': false}).then((value) =>
-                                Navigator.pushNamed(context, '/login'))
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, "/login", (r) => false))
                       }
                   })
             }
@@ -68,7 +69,10 @@ class _SettingsState extends State<Settings> {
                             overlayColor:
                                 MaterialStateProperty.all(Colors.transparent),
                           ),
-                          child: Text('Çıkış yap')),
+                          child: Text(
+                            'Çıkış yap',
+                            style: TextStyle(color: Colors.grey.shade700),
+                          )),
                     ]),
                   ],
                 ),

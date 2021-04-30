@@ -14,6 +14,7 @@ class _PostDetailState extends State<PostDetail> {
     final routeParams = ModalRoute.of(context).settings.arguments as Map;
     final senderName = routeParams['senderName'];
     final senderImage = 'https://robohash.org/$senderName.png';
+    final targetName = routeParams['targetName'];
 
     return AppLayout(
       pushedView: true,
@@ -32,6 +33,7 @@ class _PostDetailState extends State<PostDetail> {
                             routeParams['isImageUrl']
                         ? NetworkImage(senderImage)
                         : AssetImage('assets/images/user.png'),
+                    backgroundColor: Colors.grey.shade400,
                   ),
                 ),
               ),
@@ -41,7 +43,7 @@ class _PostDetailState extends State<PostDetail> {
                   Row(
                     children: [
                       Text(
-                        routeParams['targetName'],
+                        '$senderName > $targetName',
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey.shade900,
@@ -54,7 +56,7 @@ class _PostDetailState extends State<PostDetail> {
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(0, 4, 0, 0),
                       child: Text(
-                        '$senderName paylaştı.',
+                        'az önce',
                         style: TextStyle(
                           fontSize: 13,
                           color: Colors.grey.shade600,
