@@ -58,7 +58,12 @@ class _SettingsState extends State<Settings> {
                         padding: EdgeInsets.fromLTRB(0, 0, 12, 0),
                         child: IconButton(
                           icon: Icon(Icons.logout),
-                          onPressed: () {},
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onPressed: () {
+                            handleLogout();
+                          },
+                          color: Colors.grey.shade700,
                         ),
                       ),
                       TextButton(
