@@ -32,7 +32,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   localstore: ^1.1.8
   flutter_spinkit: "^4.1.2"
-  http: ^0.13.2
 
 dev_dependencies:
   flutter_test:
