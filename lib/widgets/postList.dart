@@ -18,7 +18,6 @@ class PostListState extends State<PostList> {
     final title = post['title'];
     final description = post['description'];
     final senderImage = 'https://robohash.org/$senderName.png';
-    double width = MediaQuery.of(context).size.width * 0.8;
 
     return ListTile(
       onTap: () {
