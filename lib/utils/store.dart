@@ -17,9 +17,42 @@ class Store {
     return data;
   }
 
+  Future<Map<String, dynamic>> getStoreItem(String dataKey) async {
+    final storeData = await localStore().collection(dataKey).get();
+    return storeData;
+  }
+
+  String getId(String dataKey) {
+    final id = localStore().collection(dataKey).doc().id;
+    return id;
+  }
+
+  Future<Map> getCurrentUser() async {
+    final store = new Store();
+    var currentUser = {};
+    await store.get('users').then((value) => {
+          if (value != null)
+            {
+              value.forEach((e) => {
+                    if (e['isLoggedIn']) {currentUser = e}
+                  })
+            }
+        });
+
+    return currentUser;
+  }
+
   Future<dynamic> set(String dataKey, dynamic data) async {
     final uniqueId = localStore().collection(dataKey).doc().id;
-    final res = localStore().collection(dataKey).doc(uniqueId).set(data);
+    final res = localStore()
+        .collection(dataKey)
+        .doc(uniqueId)
+        .set({'id': uniqueId, ...data});
+    return res;
+  }
+
+  Future<dynamic> delete(String dataKey, String dataId) async {
+    final res = localStore().collection(dataKey).doc(dataKey).delete();
     return res;
   }
 }

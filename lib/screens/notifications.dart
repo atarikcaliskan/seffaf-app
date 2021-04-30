@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:seffafapp/widgets/button.dart';
 
 class Notifications extends StatefulWidget {
   Notifications({Key key}) : super(key: key);
@@ -25,13 +24,8 @@ class _NotificationsState extends State<Notifications> {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
-              child: Text(
-                  'ZzZzz... Henüz hiç bildirimin yok. \n Bildirimler için geliştirici ile iletişime geç!',
+              child: Text('ZzZzz... Henüz hiç bildirimin yok.',
                   textAlign: TextAlign.center),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 48, 0, 0),
-              child: Button(text: 'İletişime Geç', onPressed: () {}),
             ),
           ],
         ),

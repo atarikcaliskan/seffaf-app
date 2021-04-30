@@ -1,9 +1,9 @@
-const dummyPost = [
+const mockPosts = [
   {
     'title': 'Flutter Dersleri ile İlgili',
     'description':
         'Flutter derslerinde store konusundaki anlatımınız için teşekkür ederiz. Bizimle bu konu ile alakalı daha fazla kaynak paylaşabilir misiniz?',
-    'senderName': 'Tarık Çalışkan',
+    'senderName': 'Tarik Caliskan',
     'targetName': 'Ahmet Cevahir Çınar',
   },
   {
@@ -34,4 +34,12 @@ const dummyPost = [
     'senderName': 'Rüştü Karahan',
     'targetName': 'Fatih Başçiftçi',
   }
+];
+
+const mockPeople = [
+  'Rüştü Karahan',
+  'Ali Yeditepe',
+  'Veli Numan Keçeci',
+  'Ali Cambaz',
+  'Tarık Çalışkan'
 ];

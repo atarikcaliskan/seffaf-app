@@ -18,19 +18,15 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     store.get('posts').then((value) => setState(() {
-          _posts = [...value, ...dummyPost];
+          _posts = [...value, ...mockPosts];
         }));
   }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-          child: _posts.length > 0
-              ? PostList(
-                  posts: _posts,
-                )
-              : null),
+      child:
+          Container(child: _posts.length > 0 ? PostList(posts: _posts) : null),
     );
   }
 }

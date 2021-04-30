@@ -43,7 +43,7 @@ class PersonListState extends State<PersonList> {
   Widget _buildRow(Person person) {
     return ListTile(
       onTap: () {
-        Navigator.pushNamed(context, '/stranger',
+        Navigator.pushNamed(context, '/scholar',
             arguments: {'name': person.getName(), 'image': person.getImage()});
       },
       title: Row(

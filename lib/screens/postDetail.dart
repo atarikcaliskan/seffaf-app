@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:seffafapp/layouts/app.dart';
-import 'package:seffafapp/utils/store.dart';
 
 class PostDetail extends StatefulWidget {
   PostDetail({Key key}) : super(key: key);
@@ -10,12 +9,11 @@ class PostDetail extends StatefulWidget {
 }
 
 class _PostDetailState extends State<PostDetail> {
-  final store = new Store();
-
   @override
   Widget build(BuildContext context) {
     final routeParams = ModalRoute.of(context).settings.arguments as Map;
     final senderName = routeParams['senderName'];
+    final senderImage = 'https://robohash.org/$senderName.png';
 
     return AppLayout(
       pushedView: true,
@@ -30,8 +28,10 @@ class _PostDetailState extends State<PostDetail> {
                   borderRadius: BorderRadius.circular(24.0),
                   child: CircleAvatar(
                     radius: 20,
-                    backgroundImage: AssetImage(
-                        routeParams['senderImage'] ?? 'assets/images/user.png'),
+                    backgroundImage: routeParams['isImageUrl'] != null &&
+                            routeParams['isImageUrl']
+                        ? NetworkImage(senderImage)
+                        : AssetImage('assets/images/user.png'),
                   ),
                 ),
               ),
@@ -78,7 +78,7 @@ class _PostDetailState extends State<PostDetail> {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 6, 12, 4),
                 child: Container(
-                  constraints: BoxConstraints(maxWidth: 350),
+                  constraints: BoxConstraints(maxWidth: 280),
                   child: Text(
                     routeParams['description'],
                     style: TextStyle(fontSize: 14),

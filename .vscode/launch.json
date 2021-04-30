@@ -1,25 +1,10 @@
 {
-    "version": "0.2.0",
     "configurations": [
-        {
-            "name": "Flutter-All",
-            "preLaunchTask": "Flutter-Launch-All",
-            "type": "dart",
-        },
-        {
-            "name": "Flutter-iOS",
-            "preLaunchTask": "Flutter-Launch-iOS",
-            "type": "dart",
-        },
-        {
-            "name": "Flutter-Android",
-            "preLaunchTask": "Flutter-Launch-Android",
-            "type": "dart",
-        },
-        {
-            "name": "Flutter-Web",
-            "preLaunchTask": "Flutter-Launch-Web",
-            "type": "dart",
-        }
-    ],
+    {
+        "name": "Flutter",
+        "type": "dart",
+        "request": "launch",
+        "program": "lib/main.dart"
+    }
+    ]
 }

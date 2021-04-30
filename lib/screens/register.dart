@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seffafapp/screens/home.dart';
+import 'package:seffafapp/utils/store.dart';
 import 'package:seffafapp/widgets/button.dart';
 import 'package:seffafapp/widgets/input.dart';
 
@@ -14,43 +14,42 @@ class _RegisterState extends State<Register> {
   String _fullName = '';
   String _email = '';
   String _password = '';
+  String _college = '';
+  String _branch = '';
+  final store = new Store();
 
   void handleFormValidation() {
-    if (_password.length > 8 && _email.length > 0 && _fullName.length > 0) {
+    if (_password.length > 5 && _email.length > 0 && _fullName.length > 0) {
       var data = {
-        'currentUser': {
-          'fullName': _fullName,
-          'email': _email,
-          'password': _password
-        }
+        'fullName': _fullName,
+        'email': _email,
+        'password': _password,
+        'college': _college,
+        'branch': _branch,
+        'isLoggedIn': true
       };
-
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Home(),
-            settings: RouteSettings(
-              arguments: data,
-            ),
-          ));
+      store
+          .set('users', data)
+          .then((value) => Navigator.pushNamed(context, '/app'));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     bool _disabled = true;
-    if (_password.length > 8 && _email.length > 0 && _fullName.length > 0) {
+    if (_password.length > 5 && _email.length > 0 && _fullName.length > 0) {
       _disabled = false;
     } else {
       _disabled = true;
     }
     return Scaffold(
-      body: SafeArea(
+      resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+          padding: EdgeInsets.symmetric(horizontal: 32),
           child: Column(
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Spacer(flex: 2),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 64),
                 child: Image.asset(
@@ -61,11 +60,33 @@ class _RegisterState extends State<Register> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
                 child: Input(
-                    label: 'Isim Soyisim:',
-                    placeholder: 'Isim soyisim giriniz',
+                    label: 'İsim Soyisim:',
+                    placeholder: 'İsim soyisim giriniz',
                     onChanged: (fullNameInput) {
                       setState(() {
                         _fullName = fullNameInput;
+                      });
+                    }),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
+                child: Input(
+                    label: 'Bölüm:',
+                    placeholder: 'Bölümünüzü giriniz',
+                    onChanged: (branchInput) {
+                      setState(() {
+                        _branch = branchInput;
+                      });
+                    }),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
+                child: Input(
+                    label: 'Fakülte:',
+                    placeholder: 'Fakültenizi giriniz',
+                    onChanged: (collegeInput) {
+                      setState(() {
+                        _college = collegeInput;
                       });
                     }),
               ),
@@ -99,16 +120,14 @@ class _RegisterState extends State<Register> {
               ),
               MaterialButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/');
+                  Navigator.pushNamed(context, '/login');
                 },
                 child: Text('Hesabınız var mı? Giriş yapın!'),
               ),
-              Spacer(flex: 2),
             ],
           ),
         ),
       ),
-      resizeToAvoidBottomInset: false,
     );
   }
 }

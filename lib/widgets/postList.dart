@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seffafapp/constants/data.dart';
 import 'package:seffafapp/screens/postDetail.dart';
 
 // ignore: must_be_immutable
@@ -16,11 +17,7 @@ class PostListState extends State<PostList> {
     final targetName = post['targetName'];
     final title = post['title'];
     final description = post['description'];
-    final senderImage = senderName != null
-        ? senderName == 'Tarık Çalışkan'
-            ? 'assets/images/Tarik Çalişkan.jpeg'
-            : 'assets/images/$senderName.jpeg'
-        : 'assets/images/user.png';
+    final senderImage = 'https://robohash.org/$senderName.png';
 
     return ListTile(
       onTap: () {
@@ -29,7 +26,7 @@ class PostListState extends State<PostList> {
           'targetName': targetName,
           'title': title,
           'description': description,
-          'senderImage': senderImage
+          'isImageUrl': mockPeople.contains(senderName)
         };
         Navigator.push(
             context,
@@ -51,7 +48,9 @@ class PostListState extends State<PostList> {
                   borderRadius: BorderRadius.circular(24.0),
                   child: CircleAvatar(
                     radius: 20,
-                    backgroundImage: AssetImage(senderImage),
+                    backgroundImage: mockPeople.contains(senderName)
+                        ? NetworkImage(senderImage)
+                        : AssetImage('assets/images/user.png'),
                   ),
                 ),
               ),
@@ -87,7 +86,7 @@ class PostListState extends State<PostList> {
             ]),
             Row(children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(52, 12, 12, 4),
+                padding: EdgeInsets.fromLTRB(52, 12, 4, 4),
                 child: Text(
                   '$title',
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
@@ -96,13 +95,13 @@ class PostListState extends State<PostList> {
             ]),
             Row(children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(52, 6, 12, 4),
+                padding: EdgeInsets.fromLTRB(52, 6, 0, 4),
                 child: Container(
-                  constraints: BoxConstraints(maxWidth: 300),
+                  constraints: BoxConstraints(maxWidth: 240),
                   child: Text(
                     '$description',
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
+                    maxLines: 3,
                     style: TextStyle(fontSize: 14),
                   ),
                 ),

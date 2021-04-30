@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:seffafapp/constants/theme.dart';
 
 // ignore: must_be_immutable
@@ -33,11 +32,12 @@ class Input extends StatelessWidget {
             onChanged(text);
           },
           maxLines: maxLines,
-          style: TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 13),
           obscureText: isPassword,
           decoration: InputDecoration(
-              contentPadding:
-                  maxLines > 1 ? EdgeInsets.fromLTRB(14, 34, 8, 8) : null,
+              contentPadding: maxLines > 1
+                  ? EdgeInsets.fromLTRB(14, 34, 8, 8)
+                  : EdgeInsets.fromLTRB(14, 0, 8, 0),
               focusedBorder: OutlineInputBorder(
                 borderSide:
                     const BorderSide(color: Colors.transparent, width: 0),
@@ -54,7 +54,6 @@ class Input extends StatelessWidget {
               filled: true,
               hintText: placeholder,
               hintStyle: TextStyle()),
-          keyboardType: TextInputType.number,
         ),
       ),
     ]);

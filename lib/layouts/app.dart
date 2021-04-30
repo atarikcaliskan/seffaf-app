@@ -7,13 +7,13 @@ import 'package:seffafapp/screens/profile.dart';
 
 // ignore: must_be_immutable
 class AppLayout extends StatefulWidget {
-  AppLayout(
-      {Key key,
-      this.children,
-      this.pushedView = false,
-      this.addIconOnTap,
-      this.hasAddIcon = false})
-      : super(key: key);
+  AppLayout({
+    Key key,
+    this.children,
+    this.addIconOnTap,
+    this.pushedView = false,
+    this.hasAddIcon = false,
+  }) : super(key: key);
   Widget children;
   bool pushedView;
   bool hasAddIcon;
@@ -36,47 +36,55 @@ class _AppLayoutState extends State<AppLayout> {
 
   @override
   Widget build(BuildContext context) {
-    var leadingPadding = widget.pushedView
-        ? EdgeInsets.all(0)
-        : EdgeInsets.fromLTRB(0, 20, 12, 8);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
         child: AppBar(
-          leading: Padding(
-            padding: leadingPadding,
-            child: Container(
-              height: 10,
-              child: widget.pushedView
-                  ? Container(
-                      child: IconButton(
-                      color: Colors.grey.shade500,
-                      iconSize: 40,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      padding: EdgeInsets.all(0),
-                      icon: Icon(Icons.chevron_left_rounded),
-                    ))
-                  : Image.asset(
+          leading: Container(
+            child: widget.pushedView
+                ? Container(
+                    child: IconButton(
+                    color: Colors.grey.shade500,
+                    iconSize: 38,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    padding: EdgeInsets.fromLTRB(0, 10, 0, 4),
+                    icon: Icon(Icons.chevron_left_rounded),
+                  ))
+                : Padding(
+                    padding: EdgeInsets.fromLTRB(8, 16, 0, 8),
+                    child: Image.asset(
                       "assets/images/logo-text.png",
-                      width: 500,
+                      width: 90,
                     ),
-            ),
+                  ),
           ),
           title: widget.pushedView
-              ? Image.asset(
-                  "assets/images/logo-text.png",
-                  width: 90,
-                )
+              ? Padding(
+                  padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                  child: Image.asset(
+                    "assets/images/logo-text.png",
+                    width: 90,
+                  ))
               : null,
-          leadingWidth: widget.pushedView ? 70 : 500,
+          leadingWidth: widget.pushedView ? 50 : 500,
+          actions: [
+            _selectedIndex == 3
+                ? IconButton(
+                    icon: Icon(Icons.settings,
+                        color: Colors.grey.shade600, size: 26),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/settings');
+                    })
+                : Padding(padding: EdgeInsets.all(0))
+          ],
           bottom: PreferredSize(
               child: Container(
                 color: Colors.grey.shade300,
                 height: 1.0,
               ),
-              preferredSize: Size.fromHeight(-10)),
+              preferredSize: Size.fromHeight(10)),
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
         ),
@@ -100,23 +108,18 @@ class _AppLayoutState extends State<AppLayout> {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home_outlined),
                   label: 'Home',
-                  // backgroundColor: Colors.red,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.people_outline),
-                  label: 'Business',
-
-                  // backgroundColor: Colors.green,
+                  icon: Icon(Icons.school_outlined),
+                  label: 'Scholars',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications),
-                  label: 'School',
-                  // backgroundColor: Colors.purple,
+                  icon: Icon(Icons.notifications_none_rounded),
+                  label: 'Notifications',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.person_outline),
-                  label: 'Settings',
-                  // backgroundColor: Colors.pink,
+                  label: 'Profile',
                 ),
               ],
             )

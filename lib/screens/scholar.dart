@@ -5,21 +5,21 @@ import 'package:seffafapp/utils/store.dart';
 import 'package:seffafapp/widgets/postList.dart';
 
 // ignore: must_be_immutable
-class Stranger extends StatefulWidget {
-  Stranger({Key key}) : super(key: key);
+class Scholar extends StatefulWidget {
+  Scholar({Key key}) : super(key: key);
 
   @override
-  _StrangerState createState() => _StrangerState();
+  _ScholarState createState() => _ScholarState();
 }
 
-class _StrangerState extends State<Stranger> {
+class _ScholarState extends State<Scholar> {
   final store = new Store();
   List<dynamic> _posts = [];
 
   void initState() {
     super.initState();
     store.get('posts').then((value) => setState(() {
-          _posts = [...value, ...dummyPost];
+          _posts = [...value, ...mockPosts];
         }));
   }
 
@@ -53,7 +53,7 @@ class _StrangerState extends State<Stranger> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: EdgeInsets.fromLTRB(0, 72, 0, 12),
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 12),
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +63,7 @@ class _StrangerState extends State<Stranger> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(24.0),
                     child: CircleAvatar(
-                      radius: 60,
+                      radius: 40,
                       backgroundImage: AssetImage(routeParams['image']),
                     ),
                   ),
