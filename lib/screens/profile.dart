@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seffafapp/constants/data.dart';
+import 'package:seffafapp/services/auth.dart';
 import 'package:seffafapp/utils/store.dart';
 import 'package:seffafapp/widgets/postList.dart';
 
@@ -13,7 +14,6 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final store = new Store();
   List<dynamic> _posts = [];
-  dynamic _user = {};
   bool _isLoading = true;
 
   void initState() {
@@ -26,23 +26,18 @@ class _ProfileState extends State<Profile> {
         .then((value) => setState(() {
               _isLoading = false;
             }));
-
-    store.getCurrentUser().then((value) => setState(() {
-          _user = value;
-        }));
   }
 
-  List<dynamic> handleFilter(List<dynamic> array, String targetName) {
+  List<dynamic> handleFilter(List<dynamic> array) {
     return array
-        .where((element) => element['senderName'] == targetName)
+        .where((element) => element['senderName'] == AuthService().userName)
         .toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    final filteredPosts = _user['fullName'] != null
-        ? handleFilter(_posts, _user['fullName'])
-        : [];
+    final filteredPosts =
+        AuthService().userName.length > 0 ? handleFilter(_posts) : [];
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -65,22 +60,8 @@ class _ProfileState extends State<Profile> {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
                 child: Text(
-                  _user['fullName'] ?? '',
+                  AuthService().userName ?? '',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 6, 0, 0),
-                child: Text(
-                  _user['branch'] ?? '',
-                  style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 6, 0, 0),
-                child: Text(
-                  _user['college'] ?? '',
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                 ),
               ),
               Container(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:seffafapp/services/auth.dart';
+import 'package:seffafapp/utils/fs.dart';
 import 'package:seffafapp/utils/store.dart';
 import 'package:seffafapp/widgets/button.dart';
 import 'package:seffafapp/widgets/input.dart';
@@ -11,32 +13,29 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  String _fullName = '';
   String _email = '';
   String _password = '';
-  String _college = '';
-  String _branch = '';
+  String _fullName = '';
+
   final store = new Store();
 
   void handleFormValidation() {
-    if (_password.length > 5 && _email.length > 0 && _fullName.length > 0) {
-      var data = {
-        'fullName': _fullName,
-        'email': _email,
-        'password': _password,
-        'college': _college,
-        'branch': _branch,
-        'isLoggedIn': true
-      };
-      store.set('users', data).then((value) =>
-          Navigator.pushNamedAndRemoveUntil(context, "/app", (r) => false));
+    if (_password.length > 5 && _email.length > 0) {
+      AuthService()
+          .register(email: _email, password: _password, fullName: _fullName)
+          .then((result) {
+        if (result == null) {
+          writeLog('Register completed');
+          Navigator.pushNamedAndRemoveUntil(context, "/app", (r) => false);
+        }
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     bool _disabled = true;
-    if (_password.length > 5 && _email.length > 0 && _fullName.length > 0) {
+    if (_password.length > 5 && _email.length > 0) {
       _disabled = false;
     } else {
       _disabled = true;
@@ -66,32 +65,10 @@ class _RegisterState extends State<Register> {
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
                 child: Input(
                     label: 'İsim Soyisim:',
-                    placeholder: 'İsim soyisim giriniz',
+                    placeholder: 'İsim soyisminizi giriniz',
                     onChanged: (fullNameInput) {
                       setState(() {
                         _fullName = fullNameInput;
-                      });
-                    }),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
-                child: Input(
-                    label: 'Bölüm:',
-                    placeholder: 'Bölümünüzü giriniz',
-                    onChanged: (branchInput) {
-                      setState(() {
-                        _branch = branchInput;
-                      });
-                    }),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
-                child: Input(
-                    label: 'Fakülte:',
-                    placeholder: 'Fakültenizi giriniz',
-                    onChanged: (collegeInput) {
-                      setState(() {
-                        _college = collegeInput;
                       });
                     }),
               ),

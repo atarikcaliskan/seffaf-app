@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:localstore/localstore.dart';
 import 'package:seffafapp/layouts/app.dart';
+import 'package:seffafapp/services/auth.dart';
+import 'package:seffafapp/utils/fs.dart';
 import 'package:seffafapp/utils/store.dart';
 
 class Settings extends StatefulWidget {
@@ -12,25 +13,11 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   final store = Store();
-  final _db = Localstore.instance;
 
   void handleLogout() {
-    store.get('users').then((value) => {
-          if (value != null)
-            {
-              value.forEach((e) => {
-                    if (e['isLoggedIn'])
-                      {
-                        _db
-                            .collection('users')
-                            .doc(e['id'])
-                            .set({...e, 'isLoggedIn': false}).then((value) =>
-                                Navigator.pushNamedAndRemoveUntil(
-                                    context, "/login", (r) => false))
-                      }
-                  })
-            }
-        });
+    AuthService().logout().then((value) =>
+        Navigator.pushNamedAndRemoveUntil(context, "/login", (r) => false));
+    writeLog('Logged out');
   }
 
   @override
@@ -97,7 +84,7 @@ class _SettingsState extends State<Settings> {
               Padding(
                 padding: EdgeInsets.fromLTRB(32, 16, 32, 0),
                 child: Text(
-                    'Bu uygulama Dr. Öğretim Üyesi Ahmet Cevahir ÇINAR tarafından yürütülen 3301456 kodlu MOBİL PROGRAMLAMA dersi kapsamında 193311008 numaralı Abdullah Tarık Çalışkan tarafından 30 Nisan 2021 günü yapılmıştır.',
+                    'Bu uygulama Dr. Öğretim Üyesi Ahmet Cevahir ÇINAR tarafından yürütülen 3301456 kodlu MOBİL PROGRAMLAMA dersi kapsamında 193311008 numaralı Abdullah Tarık Çalışkan tarafından 25 Haziran 2021 günü yapılmıştır.',
                     style: TextStyle(color: Colors.grey.shade700)),
               )
             ],
