@@ -71,7 +71,7 @@ class _AppLayoutState extends State<AppLayout> {
               : null,
           leadingWidth: widget.pushedView ? 50 : 500,
           actions: [
-            _selectedIndex == 3
+            _selectedIndex == 4
                 ? IconButton(
                     icon: Icon(Icons.settings,
                         color: Colors.grey.shade600, size: 26),
