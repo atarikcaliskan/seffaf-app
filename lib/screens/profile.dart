@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:seffafapp/constants/data.dart';
+import 'package:seffafapp/constants/theme.dart';
+import 'package:seffafapp/services/api.dart';
 import 'package:seffafapp/services/auth.dart';
 import 'package:seffafapp/utils/store.dart';
 import 'package:seffafapp/widgets/postList.dart';
@@ -15,6 +17,8 @@ class _ProfileState extends State<Profile> {
   final store = new Store();
   List<dynamic> _posts = [];
   bool _isLoading = true;
+  String _branchName = '';
+  bool _isBranchLoading = true;
 
   void initState() {
     super.initState();
@@ -34,10 +38,26 @@ class _ProfileState extends State<Profile> {
         .toList();
   }
 
+  _ProfileState() {
+    ApiService()
+        .getUserBranch(AuthService().email)
+        .then((value) => {
+              setState(() {
+                _branchName = value;
+              })
+            })
+        .then((value) => {
+              setState(() {
+                _isBranchLoading = false;
+              })
+            });
+  }
+
   @override
   Widget build(BuildContext context) {
     final filteredPosts =
         AuthService().userName.length > 0 ? handleFilter(_posts) : [];
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -63,6 +83,33 @@ class _ProfileState extends State<Profile> {
                   AuthService().userName ?? '',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                 ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
+                child: Text(
+                  _branchName,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
+                child: !_isBranchLoading && !(_branchName.length > 0)
+                    ? MaterialButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/addBranch');
+                        },
+                        child: Text(
+                          'Bölüm Ekle',
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: primaryColor),
+                        ),
+                      )
+                    : Padding(padding: EdgeInsets.all(0)),
               ),
               Container(
                   padding: EdgeInsets.all(12),

@@ -28,15 +28,17 @@ List<UserBranch> parseUserBranch(String responseBody) {
 }
 
 class ApiService {
-  getUserBranch(String id) async {
-    final response = await http.get(Uri.parse(apiUrl + '/branches'));
-    if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse
-          .where((element) => element['userId'] == id)
-          .first['branch'];
-    } else {
-      throw Exception('Unexpected error occured!');
+  Future<String> getUserBranch(String id) async {
+    try {
+      final response = await http.get(Uri.parse(apiUrl + '/branches'));
+      if (response.statusCode == 200) {
+        List jsonResponse = json.decode(response.body);
+        return jsonResponse
+            .where((element) => element['userId'] == id)
+            .first['branch'];
+      }
+    } catch (e) {
+      return '';
     }
   }
 
