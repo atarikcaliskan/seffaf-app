@@ -35,81 +35,86 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     bool _disabled = true;
-    if (_password.length > 5 && _email.length > 0) {
+    if (_password.length > 5 && _email.length > 0 && _fullName.length > 0) {
       _disabled = false;
     } else {
       _disabled = true;
     }
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(32, 12, 32, 32),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32),
-                child: Image.asset(
-                  "assets/images/logo.png",
-                  height: 72,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 32),
+                  child: Image.asset(
+                    "assets/images/logo.png",
+                    height: 72,
+                  ),
                 ),
-              ),
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 24),
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 48),
+                    child: Text(
+                      'Kayıt Ol',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                    )),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
+                  child: Input(
+                      label: 'İsminiz:',
+                      placeholder: 'İsminizi giriniz',
+                      onChanged: (fullNameInput) {
+                        setState(() {
+                          _fullName = fullNameInput;
+                        });
+                      }),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
+                  child: Input(
+                      label: 'Email Adresiniz:',
+                      placeholder: 'Email adresinizi giriniz',
+                      onChanged: (emailInput) {
+                        setState(() {
+                          _email = emailInput;
+                        });
+                      }),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+                  child: Input(
+                      label: 'Şifreniz:',
+                      placeholder: 'Şifrenizi giriniz',
+                      isPassword: true,
+                      onChanged: (passwordInput) {
+                        setState(() {
+                          _password = passwordInput;
+                        });
+                      }),
+                ),
+                Button(
+                  text: "Kayıt Ol",
+                  padding: const EdgeInsets.all(12),
+                  onPressed: _disabled ? null : handleFormValidation,
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
                   child: Text(
-                    'Kayıt ol',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                  )),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
-                child: Input(
-                    label: 'İsim Soyisim:',
-                    placeholder: 'İsim soyisminizi giriniz',
-                    onChanged: (fullNameInput) {
-                      setState(() {
-                        _fullName = fullNameInput;
-                      });
-                    }),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
-                child: Input(
-                    label: 'Email Adresiniz:',
-                    placeholder: 'Email adresinizi giriniz',
-                    onChanged: (emailInput) {
-                      setState(() {
-                        _email = emailInput;
-                      });
-                    }),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
-                child: Input(
-                    label: 'Şifreniz:',
-                    placeholder: 'Şifrenizi giriniz',
-                    isPassword: true,
-                    onChanged: (passwordInput) {
-                      setState(() {
-                        _password = passwordInput;
-                      });
-                    }),
-              ),
-              Button(
-                text: "Kayıt Ol",
-                onPressed: _disabled ? null : handleFormValidation,
-                padding: const EdgeInsets.all(12),
-              ),
-              MaterialButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login');
-                },
-                child: Text(
-                  'Hesabınız mı var? Giriş yapın!',
-                  style: TextStyle(color: Colors.grey.shade600),
+                    'Hesabınız mı var? Giriş yapın!',
+                    style: TextStyle(color: Colors.grey.shade600),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

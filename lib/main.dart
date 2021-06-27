@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:seffafapp/layouts/app.dart';
+import 'package:seffafapp/screens/addBranch.dart';
 import 'package:seffafapp/screens/addPost.dart';
 import 'package:seffafapp/screens/loading.dart';
 import 'package:seffafapp/screens/login.dart';
@@ -38,6 +39,7 @@ class _MyAppState extends State<MyApp> {
         '/postDetail': (context) => PostDetail(),
         '/notifications': (context) => Notifications(),
         '/addPost': (context) => AddPost(),
+        '/addBranch': (context) => AddBranch(),
         '/settings': (context) => Settings(),
         '/loading': (context) => Loading(),
       },
