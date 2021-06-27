@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seffafapp/constants/theme.dart';
+import 'package:seffafapp/screens/analytics.dart';
 import 'package:seffafapp/screens/home.dart';
 import 'package:seffafapp/screens/notifications.dart';
 import 'package:seffafapp/screens/people.dart';
@@ -26,7 +27,7 @@ class AppLayout extends StatefulWidget {
 class _AppLayoutState extends State<AppLayout> {
   int _selectedIndex = 0;
 
-  final _pages = [Home(), People(), Notifications(), Profile()];
+  final _pages = [Home(), People(), Analytics(), Notifications(), Profile()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -70,7 +71,7 @@ class _AppLayoutState extends State<AppLayout> {
               : null,
           leadingWidth: widget.pushedView ? 50 : 500,
           actions: [
-            _selectedIndex == 3
+            _selectedIndex == 4
                 ? IconButton(
                     icon: Icon(Icons.settings,
                         color: Colors.grey.shade600, size: 26),
@@ -112,6 +113,10 @@ class _AppLayoutState extends State<AppLayout> {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.school_outlined),
                   label: 'Scholars',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.bar_chart),
+                  label: 'Analytics',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.notifications_none_rounded),

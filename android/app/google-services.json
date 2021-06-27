@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "508407632616",
+    "project_id": "seffaf-f11e4",
+    "storage_bucket": "seffaf-f11e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508407632616:android:c56b3a800b0563e5eaef5d",
+        "android_client_info": {
+          "package_name": "com.example.seffafapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508407632616-rol2uq63e810lss5o6tr9j71k2ee3sin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_08Jgb5TqlbVHTeUoThUe7wxcB2QpvW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508407632616-rol2uq63e810lss5o6tr9j71k2ee3sin.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "508407632616-pk335ki02u1el1vl6p7ra18ka1kbgt60.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.seffafapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:seffafapp/constants/theme.dart';
+import 'package:seffafapp/services/auth.dart';
 import 'package:seffafapp/utils/store.dart';
 
 class Loading extends StatefulWidget {
@@ -13,36 +14,18 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   final store = new Store();
 
-  void checkLogin() async {
-    await store
-        .getCurrentUser()
-        .then((value) => {
-              if (value != null &&
-                  value['isLoggedIn'] != null &&
-                  value['isLoggedIn'])
-                Timer(Duration(seconds: 1), () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, "/app", (r) => false);
-                })
-              else
-                {
-                  Timer(Duration(seconds: 1), () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, "/login", (r) => false);
-                  })
-                }
-            })
-        .catchError(
-          (e) => {
-            Navigator.pushNamedAndRemoveUntil(context, "/login", (r) => false)
-          },
-        );
-  }
-
   @override
   void initState() {
     super.initState();
-    checkLogin();
+    if (AuthService().user != null) {
+      Timer(Duration(seconds: 1), () {
+        Navigator.pushNamedAndRemoveUntil(context, "/app", (r) => false);
+      });
+    } else {
+      Timer(Duration(seconds: 1), () {
+        Navigator.pushNamedAndRemoveUntil(context, "/login", (r) => false);
+      });
+    }
   }
 
   @override

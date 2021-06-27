@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seffafapp/layouts/app.dart';
+import 'package:seffafapp/services/auth.dart';
 import 'package:seffafapp/utils/store.dart';
 import 'package:seffafapp/widgets/button.dart';
 import 'package:seffafapp/widgets/input.dart';
@@ -26,20 +27,18 @@ class _AddPostState extends State<AddPost> {
   }
 
   void handleAddPost(writingFor, routeParams) {
-    if (_user['fullName'] != null) {
-      final newPost = {
-        'title': _title,
-        'description': _description,
-        'senderName': _user['fullName'],
-        'targetName': writingFor,
-      };
+    final newPost = {
+      'title': _title,
+      'description': _description,
+      'senderName': AuthService().userName ?? 'Bilinmeyen Kullanıcı',
+      'targetName': writingFor,
+    };
 
-      store.set('posts', newPost).then((value) => {
-            routeParams['handleState']([newPost]),
-            Navigator.pushReplacementNamed(context, '/postDetail',
-                arguments: newPost)
-          });
-    }
+    store.set('posts', newPost).then((value) => {
+          routeParams['handleState']([newPost]),
+          Navigator.pushReplacementNamed(context, '/postDetail',
+              arguments: newPost)
+        });
   }
 
   @override

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:localstore/localstore.dart';
+import 'package:seffafapp/services/auth.dart';
+import 'package:seffafapp/utils/fs.dart';
 import 'package:seffafapp/utils/store.dart';
+import 'package:seffafapp/utils/throwAlert.dart';
 import 'package:seffafapp/widgets/button.dart';
 import 'package:seffafapp/widgets/input.dart';
 
@@ -15,18 +17,17 @@ class _LoginState extends State<Login> {
   String _email = '';
   String _password = '';
   final store = Store();
-  final _db = Localstore.instance;
 
   void handleFormValidation() {
-    store.get('users').then((value) => value.forEach((e) => {
-          if (_email == e['email'] && _password == e['password'])
-            _db
-                .collection('users')
-                .doc(e['id'])
-                .set({...e, 'isLoggedIn': true}).then((value) =>
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, "/app", (r) => false))
-        }));
+    AuthService().login(email: _email, password: _password).then((result) {
+      if (result == null) {
+        Navigator.pushNamedAndRemoveUntil(context, "/app", (r) => false);
+        writeLog('Logged in');
+      } else {
+        writeLog(result);
+        throwAlert(context, result);
+      }
+    });
   }
 
   @override
