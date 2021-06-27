@@ -4,7 +4,8 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   get user => _auth.currentUser;
   get userId => _auth.currentUser.uid;
-  get userName => _auth.currentUser.displayName;
+  get userName =>
+      _auth.currentUser != null ? _auth.currentUser.displayName : '';
 
   Future register({String email, String password, String fullName}) async {
     try {
